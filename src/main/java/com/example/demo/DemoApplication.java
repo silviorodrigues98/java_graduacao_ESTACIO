@@ -3,7 +3,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
-import javax.swing.JButton; // Import JButton class
+import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 import java.awt.*;
 import javax.swing.BorderFactory;
@@ -11,6 +11,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DemoApplication {
+
+	// Pre-configured username and password
+	private static final String USERNAME = "admin";
+	private static final String PASSWORD = "password";
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
@@ -67,8 +71,14 @@ public class DemoApplication {
 			JButton loginButton = new JButton("Login");
 			loginButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					// Perform login action here
-					System.out.println("Login button clicked");
+					String usernameInput = userField.getText();
+					String passwordInput = new String(passwordField.getPassword());
+
+					if (usernameInput.equals(USERNAME) && passwordInput.equals(PASSWORD)) {
+						System.out.println("Login successful");
+					} else {
+						System.out.println("Login failed");
+					}
 				}
 			});
 
