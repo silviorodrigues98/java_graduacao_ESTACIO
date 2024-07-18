@@ -14,8 +14,8 @@ import java.awt.event.ActionListener;
 public class DemoApplication {
 
 	// Pre-configured username and password
-	private static final String USERNAME = "admin";
-	private static final String PASSWORD = "password";
+	private static final String USERNAME = "a";
+	private static final String PASSWORD = "a";
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
@@ -84,11 +84,18 @@ public class DemoApplication {
 						JPanel buttonPanel = new JPanel();
 						buttonPanel.setLayout(new GridBagLayout()); // Use GridBagLayout for center alignment
 
-						JButton button1 = new JButton("CADASTRAR HORÁRIO");
-						buttonPanel.add(button1);
+						JButton botaoAgendar = new JButton("CADASTRAR HORÁRIO");
+						botaoAgendar.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								frame.getContentPane().removeAll(); // Remove all components from the frame
+								frame.revalidate(); // Revalidate the frame to update the layout
+								frame.repaint(); // Repaint the frame to reflect the changes
+							}
+						});
+						buttonPanel.add(botaoAgendar);
 
-						JButton button2 = new JButton("VER MEUS HORÁRIOS");
-						buttonPanel.add(button2);
+						JButton botaoVerAgenda = new JButton("VER MEUS HORÁRIOS");
+						buttonPanel.add(botaoVerAgenda);
 
 						// Add the button panel to the fullscreen frame's content pane
 						fullscreenFrame.getContentPane().add(buttonPanel, BorderLayout.CENTER);

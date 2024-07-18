@@ -1,0 +1,4 @@
+- O usuário loga com seu usuário.
+- O usuário escolhe entre ver seus horários agendados ou agendar novo horário
+- Na opção de agendar, o usuário poderá selecionar entre uma lista de data e hora.
+- Horários já agendados ficarão intangíveis.
