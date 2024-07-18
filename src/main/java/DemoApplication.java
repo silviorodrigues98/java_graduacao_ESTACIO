@@ -79,6 +79,23 @@ public class DemoApplication {
 						fullscreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 						fullscreenFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Set the frame to full screen
 						fullscreenFrame.setVisible(true);
+
+						// Add two buttons side by side in the middle of the jframe
+						JPanel buttonPanel = new JPanel();
+						buttonPanel.setLayout(new GridBagLayout()); // Use GridBagLayout for center alignment
+
+						JButton button1 = new JButton("CADASTRAR HORÁRIO");
+						buttonPanel.add(button1);
+
+						JButton button2 = new JButton("VER MEUS HORÁRIOS");
+						buttonPanel.add(button2);
+
+						// Add the button panel to the fullscreen frame's content pane
+						fullscreenFrame.getContentPane().add(buttonPanel, BorderLayout.CENTER);
+
+						// Center the buttons vertically and horizontally
+						buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+						buttonPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
 					} else {
 						System.out.println("Login failed");
 						JOptionPane.showMessageDialog(frame, "Senha ou usuário incorretos, tente novamente.",
