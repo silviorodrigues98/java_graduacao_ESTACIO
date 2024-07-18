@@ -70,6 +70,12 @@ public class DemoApplication {
 
 					if (usernameInput.equals(USERNAME) && passwordInput.equals(PASSWORD)) {
 						System.out.println("Login successful");
+						frame.getContentPane().removeAll(); // Clear the frame's content pane
+						frame.revalidate(); // Revalidate the frame to update the changes
+						frame.repaint(); // Repaint the frame to reflect the changes
+
+						// Expand the JFrame
+						frame.setSize(800, 600);
 					} else {
 						System.out.println("Login failed");
 					}
