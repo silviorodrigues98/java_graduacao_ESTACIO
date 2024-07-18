@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -21,6 +22,7 @@ public class DemoApplication {
 			JFrame frame = new JFrame("APP ACADEMIA COMUNITÁRIA");
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setSize(500, 500);
+			frame.setLocationRelativeTo(null); // Set the frame to open at the center of the screen
 
 			// Create a panel to hold the input fields and button
 			JPanel inputPanel = new JPanel();
@@ -70,14 +72,18 @@ public class DemoApplication {
 
 					if (usernameInput.equals(USERNAME) && passwordInput.equals(PASSWORD)) {
 						System.out.println("Login successful");
-						frame.getContentPane().removeAll(); // Clear the frame's content pane
-						frame.revalidate(); // Revalidate the frame to update the changes
-						frame.repaint(); // Repaint the frame to reflect the changes
+						frame.dispose(); // Close the current frame
 
-						// Expand the JFrame
-						frame.setSize(800, 600);
+						// Create a new full-screen frame
+						JFrame fullscreenFrame = new JFrame("APP ACADEMIA COMUNITÁRIA");
+						fullscreenFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						fullscreenFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); // Set the frame to full screen
+						fullscreenFrame.setVisible(true);
 					} else {
 						System.out.println("Login failed");
+						JOptionPane.showMessageDialog(frame, "Senha ou usuário incorretos, tente novamente.",
+								"LOGIN INVALIDO",
+								JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			});
