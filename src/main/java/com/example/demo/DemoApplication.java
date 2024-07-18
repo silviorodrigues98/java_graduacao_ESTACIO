@@ -24,33 +24,42 @@ public class DemoApplication {
 
 			// Create a panel to hold the input fields and button
 			JPanel inputPanel = new JPanel();
-			inputPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // Set flow layout with left alignment
+			inputPanel.setLayout(new GridBagLayout()); // Use GridBagLayout for center alignment
 
 			// Create label and text field for "USUÁRIO"
 			JLabel userFieldLabel = new JLabel("USUARIO: ");
 			JTextField userField = new JTextField();
 			userField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			userField.setPreferredSize(new Dimension(200, 30)); // Set preferred size for the text field
 
 			// Create label and password field for "SENHA"
 			JLabel passwordFieldLabel = new JLabel("SENHA: ");
 			JPasswordField passwordField = new JPasswordField();
 			passwordField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			passwordField.setPreferredSize(new Dimension(200, 30)); // Set preferred size for the password field
 
-			// Add components to the panel
-			inputPanel.add(userFieldLabel);
-			inputPanel.add(userField);
-			inputPanel.add(passwordFieldLabel);
-			inputPanel.add(passwordField);
+			// Add components to the panel using GridBagConstraints
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			gbc.anchor = GridBagConstraints.WEST;
+			gbc.insets = new Insets(5, 5, 5, 5);
+			inputPanel.add(userFieldLabel, gbc);
 
-			// Add the panel to the frame's content pane
-			frame.getContentPane().add(inputPanel, BorderLayout.CENTER);
+			gbc.gridx = 1;
+			gbc.gridy = 0;
+			gbc.fill = GridBagConstraints.HORIZONTAL;
+			inputPanel.add(userField, gbc);
 
-			// Calculate the width of the input area
-			int inputAreaWidth = (int) (frame.getWidth() * 0.8);
+			gbc.gridx = 0;
+			gbc.gridy = 1;
+			gbc.anchor = GridBagConstraints.WEST;
+			inputPanel.add(passwordFieldLabel, gbc);
 
-			// Set the preferred size of the text fields
-			userField.setPreferredSize(new Dimension(inputAreaWidth, userField.getPreferredSize().height));
-			passwordField.setPreferredSize(new Dimension(inputAreaWidth, passwordField.getPreferredSize().height));
+			gbc.gridx = 1;
+			gbc.gridy = 1;
+			gbc.fill = GridBagConstraints.HORIZONTAL;
+			inputPanel.add(passwordField, gbc);
 
 			// Create a button for "LOGIN"
 			JButton loginButton = new JButton("Login");
@@ -68,7 +77,14 @@ public class DemoApplication {
 			});
 
 			// Add the button to the panel
-			inputPanel.add(loginButton);
+			gbc.gridx = 0;
+			gbc.gridy = 2;
+			gbc.gridwidth = 2;
+			gbc.anchor = GridBagConstraints.CENTER;
+			inputPanel.add(loginButton, gbc);
+
+			// Add the panel to the frame's content pane
+			frame.getContentPane().add(inputPanel, BorderLayout.CENTER);
 
 			frame.setVisible(true);
 		});
