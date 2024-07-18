@@ -22,6 +22,10 @@ public class DemoApplication {
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setSize(500, 500);
 
+			// Create a panel to hold the input fields and button
+			JPanel inputPanel = new JPanel();
+			inputPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // Set flow layout with left alignment
+
 			// Create label and text field for "USUÁRIO"
 			JLabel userFieldLabel = new JLabel("USUARIO: ");
 			JTextField userField = new JTextField();
@@ -31,10 +35,6 @@ public class DemoApplication {
 			JLabel passwordFieldLabel = new JLabel("SENHA: ");
 			JPasswordField passwordField = new JPasswordField();
 			passwordField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-			// Create a panel to hold labels and text fields
-			JPanel inputPanel = new JPanel();
-			inputPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // Set flow layout with left alignment
 
 			// Add components to the panel
 			inputPanel.add(userFieldLabel);
@@ -52,21 +52,6 @@ public class DemoApplication {
 			userField.setPreferredSize(new Dimension(inputAreaWidth, userField.getPreferredSize().height));
 			passwordField.setPreferredSize(new Dimension(inputAreaWidth, passwordField.getPreferredSize().height));
 
-			// Add ActionListener to the text field
-			userField.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String input = userField.getText();
-					System.out.println("Usuário: " + input);
-				}
-			});
-
-			passwordField.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					String input = new String(passwordField.getPassword());
-					System.out.println("Senha: " + input);
-				}
-			});
-
 			// Create a button for "LOGIN"
 			JButton loginButton = new JButton("Login");
 			loginButton.addActionListener(new ActionListener() {
@@ -82,8 +67,8 @@ public class DemoApplication {
 				}
 			});
 
-			// Add the button to the frame's content pane
-			frame.getContentPane().add(loginButton, BorderLayout.SOUTH);
+			// Add the button to the panel
+			inputPanel.add(loginButton);
 
 			frame.setVisible(true);
 		});
