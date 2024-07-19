@@ -123,7 +123,6 @@ public class DemoApplication {
 										calendar.set(Calendar.HOUR_OF_DAY, 7);
 										calendar.set(Calendar.MINUTE, 0);
 										calendar.set(Calendar.SECOND, 0);
-
 										JPanel timePanel = new JPanel();
 										timePanel.setLayout(new GridLayout(0, 4)); // Set 4 columns
 
@@ -133,6 +132,8 @@ public class DemoApplication {
 											timeButton.addActionListener(new ActionListener() {
 												public void actionPerformed(ActionEvent e) {
 													// Perform actions when time button is clicked
+													System.out.println(
+															"Button pressed: " + ((JButton) e.getSource()).getText());
 												}
 											});
 											timePanel.add(timeButton);
