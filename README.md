@@ -2,3 +2,4 @@
 - O usuário escolhe entre ver seus horários agendados ou agendar novo horário
 - Na opção de agendar, o usuário poderá selecionar entre uma lista de data e hora.
 - Horários já agendados ficarão intangíveis.
+- O usuário poderá marcar somente pelo período de uma semana para frente, após a data atual.
