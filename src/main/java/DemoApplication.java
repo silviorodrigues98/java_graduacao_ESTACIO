@@ -124,11 +124,16 @@ public class DemoApplication {
 										calendar.set(Calendar.MINUTE, 0);
 										calendar.set(Calendar.SECOND, 0);
 										JPanel timePanel = new JPanel();
-										timePanel.setLayout(new GridLayout(0, 4)); // Set 4 columns
-
+										timePanel.setLayout(new GridLayout(0, 8, 5, 5));
+										JPanel panelWrapper = new JPanel();
+										panelWrapper.setPreferredSize(new Dimension(500, 500)); // Set the preferred
+										panelWrapper.add(timePanel);
 										while (calendar.get(Calendar.HOUR_OF_DAY) < 23) {
 											JButton timeButton = new JButton(String.format("%02d:%02d",
 													calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
+											timeButton.setPreferredSize(new Dimension(100, 100)); // Set the preferred
+																									// size of the
+																									// button
 											timeButton.addActionListener(new ActionListener() {
 												public void actionPerformed(ActionEvent e) {
 													// Perform actions when time button is clicked
@@ -137,14 +142,15 @@ public class DemoApplication {
 												}
 											});
 											timePanel.add(timeButton);
-
 											calendar.add(Calendar.MINUTE, 30);
 										}
 
+										panelWrapper.setAlignmentX(Component.CENTER_ALIGNMENT);
+										panelWrapper.setAlignmentY(Component.CENTER_ALIGNMENT);
 										fullscreenFrame.getContentPane().setLayout(new BorderLayout());
-										fullscreenFrame.getContentPane().add(timePanel, BorderLayout.CENTER);
-										fullscreenFrame.revalidate();
-										fullscreenFrame.repaint();
+										fullscreenFrame.getContentPane().add(panelWrapper, BorderLayout.CENTER);
+										fullscreenFrame.getContentPane().revalidate();
+										fullscreenFrame.getContentPane().repaint();
 									}
 								});
 
