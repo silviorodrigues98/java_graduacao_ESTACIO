@@ -10,10 +10,12 @@ import java.awt.*;
 import javax.swing.BorderFactory;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
+import javax.swing.SwingConstants;
 
 public class DemoApplication {
 
@@ -112,7 +114,9 @@ public class DemoApplication {
 								confirmButton.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										Date selectedDate = (Date) dateSpinner.getValue();
-										// Perform actions with selectedDate
+										SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+										String formattedDate = dateFormat.format(selectedDate);
+										System.out.println("Selected date: " + formattedDate);
 
 										fullscreenFrame.getContentPane().removeAll();
 										fullscreenFrame.revalidate();
@@ -123,20 +127,28 @@ public class DemoApplication {
 										calendar.set(Calendar.HOUR_OF_DAY, 7);
 										calendar.set(Calendar.MINUTE, 0);
 										calendar.set(Calendar.SECOND, 0);
+
+										JPanel contentWrapper = new JPanel();
+										contentWrapper.setLayout(new BorderLayout());
+										contentWrapper.setPreferredSize(new Dimension(500, 300));
+
 										JPanel timePanel = new JPanel();
-										timePanel.setLayout(new GridLayout(0, 8, 5, 5));
+										timePanel.setLayout(new GridLayout(0, 8, 50, 50));
+										JLabel selectedDateLabel = new JLabel("DATA SELECIONADA: " + formattedDate);
+										selectedDateLabel.setHorizontalAlignment(SwingConstants.CENTER);
+										selectedDateLabel.setPreferredSize(new Dimension(500, 30));
 										JPanel panelWrapper = new JPanel();
-										panelWrapper.setPreferredSize(new Dimension(500, 500)); // Set the preferred
-										panelWrapper.add(timePanel);
+										panelWrapper.setLayout(new BorderLayout());
+										panelWrapper.add(selectedDateLabel, BorderLayout.NORTH);
+										panelWrapper.add(timePanel, BorderLayout.CENTER);
+										panelWrapper.setPreferredSize(new Dimension(500, 300));
 										while (calendar.get(Calendar.HOUR_OF_DAY) < 23) {
 											JButton timeButton = new JButton(String.format("%02d:%02d",
 													calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
-											timeButton.setPreferredSize(new Dimension(100, 100)); // Set the preferred
-																									// size of the
-																									// button
+											timeButton.setPreferredSize(new Dimension(100, 100));
 											timeButton.addActionListener(new ActionListener() {
 												public void actionPerformed(ActionEvent e) {
-													// Perform actions when time button is clicked
+
 													System.out.println(
 															"Button pressed: " + ((JButton) e.getSource()).getText());
 												}
