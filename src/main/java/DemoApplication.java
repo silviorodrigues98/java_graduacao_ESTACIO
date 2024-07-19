@@ -94,7 +94,7 @@ public class DemoApplication {
 								JSpinner.DateEditor dateEditor = new JSpinner.DateEditor(dateSpinner, "dd/MM/yyyy");
 								dateSpinner.setEditor(dateEditor);
 								dateSpinner.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-								dateSpinner.setPreferredSize(new Dimension(200, 30));
+								dateSpinner.setPreferredSize(new Dimension(100, 50));
 
 								GridBagConstraints gbcDate = new GridBagConstraints();
 								gbcDate.gridx = 0;
@@ -113,6 +113,37 @@ public class DemoApplication {
 									public void actionPerformed(ActionEvent e) {
 										Date selectedDate = (Date) dateSpinner.getValue();
 										// Perform actions with selectedDate
+
+										fullscreenFrame.getContentPane().removeAll();
+										fullscreenFrame.revalidate();
+										fullscreenFrame.repaint();
+
+										Calendar calendar = Calendar.getInstance();
+										calendar.setTime(selectedDate);
+										calendar.set(Calendar.HOUR_OF_DAY, 7);
+										calendar.set(Calendar.MINUTE, 0);
+										calendar.set(Calendar.SECOND, 0);
+
+										JPanel timePanel = new JPanel();
+										timePanel.setLayout(new GridLayout(0, 4)); // Set 4 columns
+
+										while (calendar.get(Calendar.HOUR_OF_DAY) < 23) {
+											JButton timeButton = new JButton(String.format("%02d:%02d",
+													calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
+											timeButton.addActionListener(new ActionListener() {
+												public void actionPerformed(ActionEvent e) {
+													// Perform actions when time button is clicked
+												}
+											});
+											timePanel.add(timeButton);
+
+											calendar.add(Calendar.MINUTE, 30);
+										}
+
+										fullscreenFrame.getContentPane().setLayout(new BorderLayout());
+										fullscreenFrame.getContentPane().add(timePanel, BorderLayout.CENTER);
+										fullscreenFrame.revalidate();
+										fullscreenFrame.repaint();
 									}
 								});
 
