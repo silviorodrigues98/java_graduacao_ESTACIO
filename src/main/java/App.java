@@ -10,8 +10,10 @@ import java.awt.*;
 import javax.swing.BorderFactory;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
@@ -142,6 +144,7 @@ public class App {
                                         panelWrapper.add(selectedDateLabel, BorderLayout.NORTH);
                                         panelWrapper.add(timePanel, BorderLayout.CENTER);
                                         panelWrapper.setPreferredSize(new Dimension(500, 300));
+                                        ArrayList<Date> array = new ArrayList<>();
                                         while (calendar.get(Calendar.HOUR_OF_DAY) < 23) {
                                             JButton timeButton = new JButton(String.format("%02d:%02d",
                                                     calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
@@ -151,6 +154,20 @@ public class App {
 
                                                     System.out.println(
                                                             "Button pressed: " + ((JButton) e.getSource()).getText());
+                                                    String selectedTime = ((JButton) e.getSource()).getText();
+                                                    String selectedDateTime = formattedDate + " " + selectedTime;
+                                                    SimpleDateFormat dateTimeFormat = new SimpleDateFormat(
+                                                            "dd/MM/yyyy HH:mm");
+                                                    try {
+                                                        Date parsedDateTime = dateTimeFormat.parse(selectedDateTime);
+                                                        System.out.println("Selected date and time: " + parsedDateTime);
+                                                        array.add(parsedDateTime);
+                                                        System.out.println("Array: " + array);
+                                                        // Use the selectedDateTime object for further processing
+                                                    } catch (ParseException ex) {
+                                                        System.out.println("Error parsing selected date and time");
+                                                        ex.printStackTrace();
+                                                    }
                                                 }
                                             });
                                             timePanel.add(timeButton);
