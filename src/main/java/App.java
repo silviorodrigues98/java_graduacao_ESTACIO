@@ -216,13 +216,11 @@ public class App {
 
                                                 try {
                                                     File file = new File("agendamentos.txt");
-                                                    if (!file.exists()) {
-                                                        FileWriter writer = new FileWriter(file);
-                                                        for (Date date : array) {
-                                                            writer.write(dateTimeFormat.format(date) + ",");
-                                                        }
-                                                        writer.close();
+                                                    FileWriter writer = new FileWriter(file, true); // append mode
+                                                    for (Date date : array) {
+                                                        writer.write(dateTimeFormat.format(date) + ",");
                                                     }
+                                                    writer.close();
                                                 } catch (IOException ex) {
                                                     ex.printStackTrace();
                                                 }
