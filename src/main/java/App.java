@@ -136,8 +136,8 @@ public class App {
                                         contentWrapper.setPreferredSize(new Dimension(500, 300));
 
                                         JPanel timePanel = new JPanel();
-                                        timePanel.setLayout(new GridLayout(0, 8, 10, 10)); // Adjust the spacing between
-                                                                                           // buttons here
+                                        timePanel.setLayout(new GridLayout(0, 8, 10, 10));
+
                                         JLabel selectedDateLabel = new JLabel("DATA SELECIONADA: " + formattedDate);
                                         selectedDateLabel.setHorizontalAlignment(SwingConstants.CENTER);
                                         selectedDateLabel.setPreferredSize(new Dimension(500, 30));
@@ -150,16 +150,14 @@ public class App {
                                         while (calendar.get(Calendar.HOUR_OF_DAY) < 23) {
                                             JButton timeButton = new JButton(String.format("%02d:%02d",
                                                     calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
-                                            timeButton.setPreferredSize(new Dimension(60, 60)); // Adjust the button
-                                                                                                // size here
+                                            timeButton.setPreferredSize(new Dimension(60, 60));
+
                                             timeButton.addActionListener(new ActionListener() {
                                                 public void actionPerformed(ActionEvent e) {
                                                     JButton clickedButton = (JButton) e.getSource();
-                                                    clickedButton.setBackground(Color.GREEN); // Change the color to
-                                                                                              // your
-                                                                                              // desired color
-                                                    clickedButton.setEnabled(false); // Disable the button to prevent
-                                                                                     // further clicks
+                                                    clickedButton.setBackground(Color.GREEN);
+
+                                                    clickedButton.setEnabled(false);
 
                                                     System.out.println("Button pressed: " + clickedButton.getText());
                                                     String selectedTime = clickedButton.getText();
@@ -171,7 +169,7 @@ public class App {
                                                         System.out.println("Selected date and time: " + parsedDateTime);
                                                         array.add(parsedDateTime);
                                                         System.out.println("Array: " + array);
-                                                        // Use the selectedDateTime object for further processing
+
                                                     } catch (ParseException ex) {
                                                         System.out.println("Error parsing selected date and time");
                                                         ex.printStackTrace();
@@ -190,34 +188,27 @@ public class App {
                                                 fullscreenFrame.revalidate();
                                                 fullscreenFrame.repaint();
 
-                                                JPanel panelWrapper = new JPanel();
-                                                panelWrapper.setLayout(new BorderLayout());
+                                                JPanel resultPanel = new JPanel();
+                                                resultPanel.setLayout(new GridLayout(array.size() + 1, 1, 0, 0));
 
-                                                JLabel dateAndTimeLabel = new JLabel("Data e Horas Selecionadas:");
-                                                dateAndTimeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                                                dateAndTimeLabel.setPreferredSize(new Dimension(500, 30));
-                                                panelWrapper.add(dateAndTimeLabel, BorderLayout.NORTH);
+                                                JLabel resultLabel = new JLabel("MEUS AGENDAMENTOS SALVOS:");
+                                                resultLabel.setFont(resultLabel.getFont().deriveFont(Font.BOLD, 20));
 
-                                                JTextArea dateAndTimeTextArea = new JTextArea();
-                                                dateAndTimeTextArea.setEditable(false);
-                                                dateAndTimeTextArea.setPreferredSize(new Dimension(500, 200));
-                                                panelWrapper.add(dateAndTimeTextArea, BorderLayout.CENTER);
+                                                resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                                resultPanel.add(resultLabel);
 
-                                                StringBuilder dateAndTimeBuilder = new StringBuilder();
-                                                for (Date dateTime : array) {
-                                                    SimpleDateFormat dateTimeFormat = new SimpleDateFormat(
-                                                            "dd/MM/yyyy HH:mm");
-                                                    String formattedDateTime = dateTimeFormat.format(dateTime);
-                                                    dateAndTimeBuilder.append(formattedDateTime).append("\n");
+                                                SimpleDateFormat dateTimeFormat = new SimpleDateFormat(
+                                                        "dd/MM/yyyy HH:mm");
+
+                                                for (Date date : array) {
+                                                    JLabel dateLabel = new JLabel(dateTimeFormat.format(date));
+                                                    dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                                    resultPanel.add(dateLabel);
                                                 }
-                                                dateAndTimeTextArea.setText(dateAndTimeBuilder.toString());
 
-                                                panelWrapper.setAlignmentX(Component.CENTER_ALIGNMENT);
-                                                panelWrapper.setAlignmentY(Component.CENTER_ALIGNMENT);
-                                                fullscreenFrame.getContentPane().setLayout(new BorderLayout());
-                                                fullscreenFrame.getContentPane().add(panelWrapper, BorderLayout.CENTER);
-                                                fullscreenFrame.getContentPane().revalidate();
-                                                fullscreenFrame.getContentPane().repaint();
+                                                fullscreenFrame.getContentPane().add(resultPanel, BorderLayout.CENTER);
+                                                fullscreenFrame.revalidate();
+                                                fullscreenFrame.repaint();
                                             }
                                         });
                                         panelWrapper.add(saveButton, BorderLayout.SOUTH);
