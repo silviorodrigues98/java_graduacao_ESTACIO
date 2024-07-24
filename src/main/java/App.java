@@ -198,7 +198,7 @@ public class App {
                                                 resultPanel.setLayout(new GridLayout(array.size() + 1, 1, 0, 0));
 
                                                 JLabel resultLabel = new JLabel("MEUS AGENDAMENTOS SALVOS:");
-                                                resultLabel.setFont(resultLabel.getFont().deriveFont(Font.BOLD, 20));
+                                                resultLabel.setFont(resultLabel.getFont().deriveFont(Font.BOLD, 40));
 
                                                 resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
                                                 resultPanel.add(resultLabel);
@@ -260,13 +260,7 @@ public class App {
                                 fullscreenFrame.repaint();
 
                                 JPanel agendaPanel = new JPanel();
-                                agendaPanel.setLayout(new GridLayout(0, 1, 0, 0));
-
-                                JLabel agendaLabel = new JLabel("MEUS HORÁRIOS AGENDADOS:");
-                                agendaLabel.setFont(agendaLabel.getFont().deriveFont(Font.BOLD, 20));
-                                agendaLabel.setHorizontalAlignment(SwingConstants.CENTER);
-                                agendaPanel.add(agendaLabel);
-
+                                agendaPanel.setLayout(new GridLayout(4, 4, 1, 1));
                                 try {
                                     File file = new File("agendamentos.txt");
                                     Scanner scanner = new Scanner(file);
@@ -278,6 +272,7 @@ public class App {
                                         Date dateTime = dateTimeFormat.parse(dateTimeString);
                                         JLabel dateLabel = new JLabel(dateTimeFormat.format(dateTime));
                                         dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                        dateLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Add border
                                         agendaPanel.add(dateLabel);
                                         System.out.println("Read date and time: " + dateTime);
                                     }
