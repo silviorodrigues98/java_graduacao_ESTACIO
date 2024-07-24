@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
 
@@ -135,7 +136,8 @@ public class App {
                                         contentWrapper.setPreferredSize(new Dimension(500, 300));
 
                                         JPanel timePanel = new JPanel();
-                                        timePanel.setLayout(new GridLayout(0, 8, 50, 50));
+                                        timePanel.setLayout(new GridLayout(0, 8, 10, 10)); // Adjust the spacing between
+                                                                                           // buttons here
                                         JLabel selectedDateLabel = new JLabel("DATA SELECIONADA: " + formattedDate);
                                         selectedDateLabel.setHorizontalAlignment(SwingConstants.CENTER);
                                         selectedDateLabel.setPreferredSize(new Dimension(500, 30));
@@ -148,13 +150,19 @@ public class App {
                                         while (calendar.get(Calendar.HOUR_OF_DAY) < 23) {
                                             JButton timeButton = new JButton(String.format("%02d:%02d",
                                                     calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
-                                            timeButton.setPreferredSize(new Dimension(100, 100));
+                                            timeButton.setPreferredSize(new Dimension(60, 60)); // Adjust the button
+                                                                                                // size here
                                             timeButton.addActionListener(new ActionListener() {
                                                 public void actionPerformed(ActionEvent e) {
+                                                    JButton clickedButton = (JButton) e.getSource();
+                                                    clickedButton.setBackground(Color.GREEN); // Change the color to
+                                                                                              // your
+                                                                                              // desired color
+                                                    clickedButton.setEnabled(false); // Disable the button to prevent
+                                                                                     // further clicks
 
-                                                    System.out.println(
-                                                            "Button pressed: " + ((JButton) e.getSource()).getText());
-                                                    String selectedTime = ((JButton) e.getSource()).getText();
+                                                    System.out.println("Button pressed: " + clickedButton.getText());
+                                                    String selectedTime = clickedButton.getText();
                                                     String selectedDateTime = formattedDate + " " + selectedTime;
                                                     SimpleDateFormat dateTimeFormat = new SimpleDateFormat(
                                                             "dd/MM/yyyy HH:mm");
@@ -173,6 +181,46 @@ public class App {
                                             timePanel.add(timeButton);
                                             calendar.add(Calendar.MINUTE, 30);
                                         }
+
+                                        JButton saveButton = new JButton("SALVAR");
+                                        saveButton.setBackground(Color.RED);
+                                        saveButton.addActionListener(new ActionListener() {
+                                            public void actionPerformed(ActionEvent e) {
+                                                fullscreenFrame.getContentPane().removeAll();
+                                                fullscreenFrame.revalidate();
+                                                fullscreenFrame.repaint();
+
+                                                JPanel panelWrapper = new JPanel();
+                                                panelWrapper.setLayout(new BorderLayout());
+
+                                                JLabel dateAndTimeLabel = new JLabel("Data e Horas Selecionadas:");
+                                                dateAndTimeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                                dateAndTimeLabel.setPreferredSize(new Dimension(500, 30));
+                                                panelWrapper.add(dateAndTimeLabel, BorderLayout.NORTH);
+
+                                                JTextArea dateAndTimeTextArea = new JTextArea();
+                                                dateAndTimeTextArea.setEditable(false);
+                                                dateAndTimeTextArea.setPreferredSize(new Dimension(500, 200));
+                                                panelWrapper.add(dateAndTimeTextArea, BorderLayout.CENTER);
+
+                                                StringBuilder dateAndTimeBuilder = new StringBuilder();
+                                                for (Date dateTime : array) {
+                                                    SimpleDateFormat dateTimeFormat = new SimpleDateFormat(
+                                                            "dd/MM/yyyy HH:mm");
+                                                    String formattedDateTime = dateTimeFormat.format(dateTime);
+                                                    dateAndTimeBuilder.append(formattedDateTime).append("\n");
+                                                }
+                                                dateAndTimeTextArea.setText(dateAndTimeBuilder.toString());
+
+                                                panelWrapper.setAlignmentX(Component.CENTER_ALIGNMENT);
+                                                panelWrapper.setAlignmentY(Component.CENTER_ALIGNMENT);
+                                                fullscreenFrame.getContentPane().setLayout(new BorderLayout());
+                                                fullscreenFrame.getContentPane().add(panelWrapper, BorderLayout.CENTER);
+                                                fullscreenFrame.getContentPane().revalidate();
+                                                fullscreenFrame.getContentPane().repaint();
+                                            }
+                                        });
+                                        panelWrapper.add(saveButton, BorderLayout.SOUTH);
                                         panelWrapper.setAlignmentX(Component.CENTER_ALIGNMENT);
                                         panelWrapper.setAlignmentY(Component.CENTER_ALIGNMENT);
                                         fullscreenFrame.getContentPane().setLayout(new BorderLayout());
