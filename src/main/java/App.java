@@ -10,6 +10,9 @@ import java.awt.*;
 import javax.swing.BorderFactory;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -147,6 +150,7 @@ public class App {
                                         panelWrapper.add(timePanel, BorderLayout.CENTER);
                                         panelWrapper.setPreferredSize(new Dimension(500, 300));
                                         ArrayList<Date> array = new ArrayList<>();
+
                                         while (calendar.get(Calendar.HOUR_OF_DAY) < 23) {
                                             JButton timeButton = new JButton(String.format("%02d:%02d",
                                                     calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
@@ -209,6 +213,19 @@ public class App {
                                                 fullscreenFrame.getContentPane().add(resultPanel, BorderLayout.CENTER);
                                                 fullscreenFrame.revalidate();
                                                 fullscreenFrame.repaint();
+
+                                                try {
+                                                    File file = new File("agendamentos.txt");
+                                                    if (!file.exists()) {
+                                                        FileWriter writer = new FileWriter(file);
+                                                        for (Date date : array) {
+                                                            writer.write(dateTimeFormat.format(date) + ",");
+                                                        }
+                                                        writer.close();
+                                                    }
+                                                } catch (IOException ex) {
+                                                    ex.printStackTrace();
+                                                }
                                             }
                                         });
                                         panelWrapper.add(saveButton, BorderLayout.SOUTH);
