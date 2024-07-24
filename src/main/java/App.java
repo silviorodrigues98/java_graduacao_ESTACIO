@@ -11,11 +11,13 @@ import javax.swing.BorderFactory;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JSpinner;
@@ -251,6 +253,47 @@ public class App {
                         buttonPanel.add(botaoAgendar);
 
                         JButton botaoVerAgenda = new JButton("VER MEUS HORÁRIOS");
+                        botaoVerAgenda.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                fullscreenFrame.getContentPane().removeAll();
+                                fullscreenFrame.revalidate();
+                                fullscreenFrame.repaint();
+
+                                JPanel agendaPanel = new JPanel();
+                                agendaPanel.setLayout(new GridLayout(0, 1, 0, 0));
+
+                                JLabel agendaLabel = new JLabel("MEUS HORÁRIOS AGENDADOS:");
+                                agendaLabel.setFont(agendaLabel.getFont().deriveFont(Font.BOLD, 20));
+                                agendaLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                agendaPanel.add(agendaLabel);
+
+                                try {
+                                    File file = new File("agendamentos.txt");
+                                    Scanner scanner = new Scanner(file);
+                                    scanner.useDelimiter(",");
+                                    SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                                    System.out.println("Reading file...");
+                                    while (scanner.hasNext()) {
+                                        String dateTimeString = scanner.next();
+                                        Date dateTime = dateTimeFormat.parse(dateTimeString);
+                                        JLabel dateLabel = new JLabel(dateTimeFormat.format(dateTime));
+                                        dateLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                                        agendaPanel.add(dateLabel);
+                                        System.out.println("Read date and time: " + dateTime);
+                                    }
+                                } catch (FileNotFoundException ex) {
+                                    System.out.println("File not found");
+                                    ex.printStackTrace();
+                                } catch (ParseException ex) {
+                                    System.out.println("Error parsing date and time");
+                                    ex.printStackTrace();
+                                }
+
+                                fullscreenFrame.getContentPane().add(agendaPanel, BorderLayout.CENTER);
+                                fullscreenFrame.revalidate();
+                                fullscreenFrame.repaint();
+                            }
+                        });
                         buttonPanel.add(botaoVerAgenda);
 
                         fullscreenFrame.getContentPane().add(buttonPanel, BorderLayout.CENTER);
