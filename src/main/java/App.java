@@ -27,8 +27,8 @@ import javax.swing.SwingConstants;
 
 public class App {
 
-    private static final String USERNAME = "a";
-    private static final String PASSWORD = "a";
+    private static final String USERNAME = "admin";
+    private static final String PASSWORD = "admin";
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
