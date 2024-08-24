@@ -21,7 +21,6 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JSpinner;
-import javax.swing.JTextArea;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SwingConstants;
 
